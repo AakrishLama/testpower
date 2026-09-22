@@ -1,4 +1,4 @@
-/// Represents an individual customer purchasing products.
+/// Represents an individual customer purchasing products. changes made from vsc
 table dim_customer
 	lineageTag: 722f3457-cf15-4439-a4c2-83500bcb3c6a
 	sourceLineageTag: [gold].[dim_customer]
