@@ -86,6 +86,30 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	measure 'Total Orders' = DISTINCTCOUNT('fact_sales'[OrderNumber])
+		formatString: "#,##0"
+
+	measure 'Total Order Quantity' = SUM('fact_sales'[OrderQuantity])
+		formatString: "#,##0"
+
+	measure 'Total Line Items' = SUM('fact_sales'[OrderLineItem])
+		formatString: "#,##0"
+
+	measure 'Active Customers' = DISTINCTCOUNT('fact_sales'[CustomerKey])
+		formatString: "#,##0"
+
+	measure 'Last Order Date' = MAX('fact_sales'[OrderDateKey])
+		formatString: "dd mmm yyyy"
+
+	measure 'Total Order Quantity Previous Year' = CALCULATE([Total Order Quantity], DATEADD('dim_date'[DateKey], -1, YEAR))
+		formatString: "#,##0"
+
+	measure 'Order Quantity YoY %' = DIVIDE([Total Order Quantity] - [Total Order Quantity Previous Year], [Total Order Quantity Previous Year])
+		formatString: "0.0%;-0.0%;-"
+
+	measure 'Stock Date Order Quantity' = CALCULATE([Total Order Quantity], USERELATIONSHIP('fact_sales'[StockDateKey], 'dim_date'[DateKey]))
+		formatString: "#,##0"
+
 	partition fact_sales = entity
 		mode: directLake
 		source

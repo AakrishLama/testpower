@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.153.json",
+  "name": "MinimalRestrainedSales-20260923.json",
+  "dataColors": [
+    "#2563EB",
+    "#64748B",
+    "#0F172A",
+    "#94A3B8",
+    "#CBD5E1",
+    "#475569",
+    "#1E40AF",
+    "#0F172A"
+  ],
+  "good": "#15803D",
+  "neutral": "#64748B",
+  "bad": "#B91C1C",
+  "maximum": "#2563EB",
+  "center": "#64748B",
+  "minimum": "#DBEAFE",
+  "null": "#94A3B8",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F172A"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F172A"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F172A"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#0F172A"
+    }
+  }
+}
