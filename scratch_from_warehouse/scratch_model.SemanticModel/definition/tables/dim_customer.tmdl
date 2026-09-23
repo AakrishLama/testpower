@@ -4,10 +4,11 @@ table dim_customer
 
 	column CustomerKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 8f0649fa-6631-4642-9a61-50c0836ef9ab
 		sourceLineageTag: CustomerKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: CustomerKey
 
 		annotation SummarizationSetBy = Automatic
@@ -130,4 +131,3 @@ table dim_customer
 			entityName: dim_customer
 			schemaName: gold
 			expressionSource: 'DirectLake - warehouse'
-

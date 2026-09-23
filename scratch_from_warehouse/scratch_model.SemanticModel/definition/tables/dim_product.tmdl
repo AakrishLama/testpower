@@ -4,10 +4,11 @@ table dim_product
 
 	column ProductKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 20270410-4298-4825-97b2-db66694e8faf
 		sourceLineageTag: ProductKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ProductKey
 
 		annotation SummarizationSetBy = Automatic
@@ -121,4 +122,3 @@ table dim_product
 			entityName: dim_product
 			schemaName: gold
 			expressionSource: 'DirectLake - warehouse'
-

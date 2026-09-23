@@ -1,6 +1,7 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
 	sourceQueryCulture: en-GB
 	dataAccessOptions
 		legacyRedirects
@@ -18,3 +19,23 @@ ref table dim_product
 ref table dim_date
 ref table fact_sales
 
+relationship fact_sales_ProductKey_dim_product_ProductKey
+	fromColumn: fact_sales.ProductKey
+	toColumn: dim_product.ProductKey
+
+relationship fact_sales_CustomerKey_dim_customer_CustomerKey
+	fromColumn: fact_sales.CustomerKey
+	toColumn: dim_customer.CustomerKey
+
+relationship fact_sales_TerritoryKey_dim_territory_SalesTerritoryKey
+	fromColumn: fact_sales.TerritoryKey
+	toColumn: dim_territory.SalesTerritoryKey
+
+relationship fact_sales_OrderDateKey_dim_date_DateKey
+	fromColumn: fact_sales.OrderDateKey
+	toColumn: dim_date.DateKey
+
+relationship fact_sales_StockDateKey_dim_date_DateKey
+	isActive: false
+	fromColumn: fact_sales.StockDateKey
+	toColumn: dim_date.DateKey

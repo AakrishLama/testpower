@@ -1,9 +1,12 @@
 table dim_date
 	lineageTag: 2e869106-6740-4022-ae47-267e32568368
 	sourceLineageTag: [gold].[dim_date]
+	dataCategory: Time
 
 	column DateKey
 		dataType: dateTime
+		isHidden
+		isUnique
 		formatString: General Date
 		lineageTag: 645297ce-5abf-449d-95b0-c6b27d15cbd0
 		sourceLineageTag: DateKey
@@ -48,4 +51,3 @@ table dim_date
 			entityName: dim_date
 			schemaName: gold
 			expressionSource: 'DirectLake - warehouse'
-

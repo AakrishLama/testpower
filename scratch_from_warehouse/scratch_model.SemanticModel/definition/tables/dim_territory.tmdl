@@ -4,10 +4,11 @@ table dim_territory
 
 	column SalesTerritoryKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 429f80bb-f2f1-41e8-a8e5-1d1d2d9f46b7
 		sourceLineageTag: SalesTerritoryKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SalesTerritoryKey
 
 		annotation SummarizationSetBy = Automatic
@@ -45,4 +46,3 @@ table dim_territory
 			entityName: dim_territory
 			schemaName: gold
 			expressionSource: 'DirectLake - warehouse'
-
