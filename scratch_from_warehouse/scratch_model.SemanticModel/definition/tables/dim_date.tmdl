@@ -1,8 +1,10 @@
+/// Calendar dimension used for time filtering and time-intelligence analysis. The active relationship to fact_sales uses Order Date; the inactive relationship uses Stock Date through a dedicated measure. Use Year, Month, and Day for grouping and filtering; these calendar attributes are not additive.
 table dim_date
 	lineageTag: 2e869106-6740-4022-ae47-267e32568368
 	sourceLineageTag: [gold].[dim_date]
 	dataCategory: Time
 
+	/// Calendar date used by the date relationships. Hidden so users select calendar attributes instead. It is the active date target for Order Date and the inactive alternate target for Stock Date.
 	column DateKey
 		dataType: dateTime
 		isHidden
@@ -15,6 +17,7 @@ table dim_date
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Calendar year component of DateKey. Use for yearly grouping, filtering, and prior-year comparisons. This is a category attribute, not an additive numeric value.
 	column Year
 		dataType: int64
 		formatString: 0
@@ -25,6 +28,7 @@ table dim_date
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Calendar month number from DateKey. Use for month filtering or chronological grouping within a year. This is a calendar attribute, not an additive numeric value.
 	column Month
 		dataType: int64
 		formatString: 0
@@ -35,6 +39,7 @@ table dim_date
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Day-of-month number from DateKey. Use for daily grouping or filtering when day-level detail is required. This is a calendar attribute, not an additive numeric value.
 	column Day
 		dataType: int64
 		formatString: 0

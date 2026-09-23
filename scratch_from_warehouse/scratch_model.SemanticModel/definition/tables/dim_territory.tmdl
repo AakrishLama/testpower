@@ -1,7 +1,9 @@
+/// Sales geography dimension used to group and filter sales activity by region, country, and continent. It filters fact_sales through SalesTerritoryKey. Use Region, Country, or Continent for business-facing geographic analysis; SalesTerritoryKey is a technical relationship key.
 table dim_territory
 	lineageTag: a2636c5a-9b81-4ec5-bb96-84c090482db7
 	sourceLineageTag: [gold].[dim_territory]
 
+	/// Technical primary key for the sales territory dimension and the one-side target of the fact_sales territory relationship. Hidden from business-facing analysis; use Region, Country, or Continent as labels.
 	column SalesTerritoryKey
 		dataType: int64
 		isHidden
@@ -13,6 +15,7 @@ table dim_territory
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Sales territory region label. Use for regional grouping, filtering, ranking, and comparisons of sales order activity.
 	column Region
 		dataType: string
 		lineageTag: 09c0cf09-d971-4937-a5f8-e3211368d635
@@ -22,6 +25,7 @@ table dim_territory
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Country associated with the sales territory. Use for country-level grouping, filtering, ranking, and comparisons of sales order activity.
 	column Country
 		dataType: string
 		lineageTag: fa567362-e191-4ca6-abf8-6c462cb92a04
@@ -31,6 +35,7 @@ table dim_territory
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Continent associated with the sales territory. Use for high-level geographic grouping and comparisons of sales order activity.
 	column Continent
 		dataType: string
 		lineageTag: b45cf533-f39e-4798-ae7e-41a83fe40442

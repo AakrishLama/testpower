@@ -1,7 +1,41 @@
+/// Central sales transaction fact at order-line grain. Each row represents one product line within a customer order. Use for order counts, ordered quantity, line-item activity, and customer participation. Product, Customer, Territory, and Date dimensions filter this table; Order Date is the default date role and Stock Date is an alternate inactive role.
 table fact_sales
 	lineageTag: 7b92be9c-e92a-463e-a5ab-7b6962a0ff90
 	sourceLineageTag: [gold].[fact_sales]
 
+	/// Distinct count of sales orders in the current filter context, based on OrderNumber. Use for questions about number of orders; do not substitute line-item rows or order quantity.
+	measure 'Total Orders' = DISTINCTCOUNT('fact_sales'[OrderNumber])
+		formatString: #,##0
+
+	/// Sum of units recorded in sales order lines for the current filter context. Use for ordered units, quantity sold, or sales-volume questions. This measure uses the active Order Date relationship by default.
+	measure 'Total Order Quantity' = SUM('fact_sales'[OrderQuantity])
+		formatString: #,##0
+
+	/// Sum of the OrderLineItem column in the current filter context, following the model's defined logic. Use for line-item activity only; confirm the warehouse definition before treating it as a count of lines.
+	measure 'Total Line Items' = SUM('fact_sales'[OrderLineItem])
+		formatString: #,##0
+
+	/// Distinct count of customer keys associated with sales rows in the current filter context. Use for the number of customers participating in orders; it is not a count of all customers in the customer dimension.
+	measure 'Active Customers' = DISTINCTCOUNT('fact_sales'[CustomerKey])
+		formatString: #,##0
+
+	/// Latest Order Date value present in the current filter context. Use to identify the most recent order date; it follows the active Order Date relationship rather than Stock Date.
+	measure 'Last Order Date' = MAX('fact_sales'[OrderDateKey])
+		formatString: dd mmm yyyy
+
+	/// Total Order Quantity evaluated for the corresponding prior-year period using dim_date. Use for prior-year comparisons; the result depends on the selected Order Date context and available contiguous dates.
+	measure 'Total Order Quantity Previous Year' = CALCULATE([Total Order Quantity], DATEADD('dim_date'[DateKey], -1, YEAR))
+		formatString: #,##0
+
+	/// Year-over-year percentage change in Total Order Quantity versus the corresponding prior-year period. Positive values indicate growth and negative values indicate decline; a dash indicates no valid prior-year denominator.
+	measure 'Order Quantity YoY %' = DIVIDE([Total Order Quantity] - [Total Order Quantity Previous Year], [Total Order Quantity Previous Year])
+		formatString: 0.0%;-0.0%;-
+
+	/// Total Order Quantity evaluated through the inactive Stock Date relationship instead of the default Order Date relationship. Use only for questions explicitly about stock-date timing.
+	measure 'Stock Date Order Quantity' = CALCULATE([Total Order Quantity], USERELATIONSHIP('fact_sales'[StockDateKey], 'dim_date'[DateKey]))
+		formatString: #,##0
+
+	/// Technical date value for when the sales order was placed. Hidden because users should use dim_date fields for filtering and grouping. This is the active relationship from fact_sales to dim_date and the default date context for sales measures.
 	column OrderDateKey
 		dataType: dateTime
 		isHidden
@@ -13,6 +47,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Technical date value for the stock-related date associated with the sales row. Hidden because users should use dim_date fields. This is an inactive alternate relationship; use Stock Date Order Quantity when analysis explicitly concerns Stock Date.
 	column StockDateKey
 		dataType: dateTime
 		isHidden
@@ -24,6 +59,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Business identifier for a sales order. Multiple order-line rows can share the same order number. Use the Total Orders measure for distinct order counts rather than counting or aggregating this column.
 	column OrderNumber
 		dataType: string
 		lineageTag: a2389ee7-8cab-476d-ae6e-323fd30864dc
@@ -33,6 +69,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Technical foreign key relating each sales row to dim_product. Hidden from business-facing analysis. Use product attributes such as ProductName, CategoryName, and SubcategoryName for grouping and filtering.
 	column ProductKey
 		dataType: int64
 		isHidden
@@ -44,6 +81,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Technical foreign key relating each sales row to dim_customer. Hidden from business-facing analysis. Use customer attributes such as FullName, Occupation, or Country-related geography instead of this identifier.
 	column CustomerKey
 		dataType: int64
 		isHidden
@@ -55,6 +93,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Technical foreign key relating each sales row to dim_territory. Hidden from business-facing analysis. Use Region, Country, or Continent for geographic grouping and filtering.
 	column TerritoryKey
 		dataType: int64
 		isHidden
@@ -66,6 +105,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Line-item sequence or line identifier recorded at order-line grain. It is currently used by the Total Line Items measure according to the model logic; do not interpret it as quantity or revenue without confirming the warehouse definition.
 	column OrderLineItem
 		dataType: int64
 		formatString: 0
@@ -76,6 +116,7 @@ table fact_sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Quantity of units recorded on a sales order line. Additive across order lines and filter context. Use the Total Order Quantity measure for user-facing questions about units, ordered quantity, or sales volume.
 	column OrderQuantity
 		dataType: int64
 		formatString: 0
@@ -85,30 +126,6 @@ table fact_sales
 		sourceColumn: OrderQuantity
 
 		annotation SummarizationSetBy = Automatic
-
-	measure 'Total Orders' = DISTINCTCOUNT('fact_sales'[OrderNumber])
-		formatString: "#,##0"
-
-	measure 'Total Order Quantity' = SUM('fact_sales'[OrderQuantity])
-		formatString: "#,##0"
-
-	measure 'Total Line Items' = SUM('fact_sales'[OrderLineItem])
-		formatString: "#,##0"
-
-	measure 'Active Customers' = DISTINCTCOUNT('fact_sales'[CustomerKey])
-		formatString: "#,##0"
-
-	measure 'Last Order Date' = MAX('fact_sales'[OrderDateKey])
-		formatString: "dd mmm yyyy"
-
-	measure 'Total Order Quantity Previous Year' = CALCULATE([Total Order Quantity], DATEADD('dim_date'[DateKey], -1, YEAR))
-		formatString: "#,##0"
-
-	measure 'Order Quantity YoY %' = DIVIDE([Total Order Quantity] - [Total Order Quantity Previous Year], [Total Order Quantity Previous Year])
-		formatString: "0.0%;-0.0%;-"
-
-	measure 'Stock Date Order Quantity' = CALCULATE([Total Order Quantity], USERELATIONSHIP('fact_sales'[StockDateKey], 'dim_date'[DateKey]))
-		formatString: "#,##0"
 
 	partition fact_sales = entity
 		mode: directLake

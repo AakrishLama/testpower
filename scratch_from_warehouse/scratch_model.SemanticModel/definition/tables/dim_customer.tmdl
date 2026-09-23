@@ -1,7 +1,9 @@
+/// Customer dimension containing descriptive attributes for customers associated with sales orders. Use it to group or filter order activity by customer identity, demographics, income, education, occupation, and household characteristics. CustomerKey is a technical relationship key and should not be used as a business label.
 table dim_customer
 	lineageTag: 7fc16cb7-2ae8-4f2b-a830-db79ea0bde52
 	sourceLineageTag: [gold].[dim_customer]
 
+	/// Technical primary key for the customer dimension and the one-side target of the fact_sales customer relationship. Hidden from business-facing analysis; use FullName or other customer attributes as labels.
 	column CustomerKey
 		dataType: int64
 		isHidden
@@ -13,6 +15,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's first name. Use with LastName or FullName for customer identification and detailed customer-level analysis.
 	column FirstName
 		dataType: string
 		lineageTag: 8bb86b45-df97-4744-9609-740f9981263b
@@ -22,6 +25,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's last name. Use with FirstName or FullName for customer identification and detailed customer-level analysis.
 	column LastName
 		dataType: string
 		lineageTag: dc8ccccb-1cd9-4d2c-b4c0-26d2b74990bb
@@ -31,6 +35,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Preferred display name for the customer, combining the customer's first and last name. Use this column as the primary customer label when grouping or filtering sales activity by customer.
 	column FullName
 		dataType: string
 		lineageTag: 90337da2-50cb-4758-a389-7f59baa57420
@@ -40,6 +45,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer birth date. Use for customer demographic analysis or age-related grouping only when appropriate; it is not an order or transaction date.
 	column BirthDate
 		dataType: dateTime
 		formatString: General Date
@@ -50,6 +56,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer marital-status attribute. Use to segment or compare sales activity by the recorded marital-status category.
 	column MaritalStatus
 		dataType: string
 		lineageTag: f2eede31-826a-4da8-a84b-6a3f65671da9
@@ -59,6 +66,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer gender attribute. Use to segment or compare sales activity by the recorded gender category.
 	column Gender
 		dataType: string
 		lineageTag: 711966b4-dc7b-47e2-8532-75d246a6cfce
@@ -68,6 +76,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer email address stored as a customer contact attribute. Use for customer identification or detail views, not for aggregation or grouping at broad analytical levels.
 	column EmailAddress
 		dataType: string
 		lineageTag: 85e8bcfe-3f68-44d8-a0d8-071a5629a6c2
@@ -77,6 +86,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer annual-income attribute as recorded in the source. Use for customer segmentation or comparison; do not interpret it as sales revenue, order value, or profit.
 	column AnnualIncome
 		dataType: double
 		lineageTag: e606d32c-842e-44c0-a666-3608f7d6ec8b
@@ -88,6 +98,7 @@ table dim_customer
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Number of children associated with the customer record. Use as a customer demographic segmentation attribute; do not sum it to represent sales activity.
 	column TotalChildren
 		dataType: int64
 		formatString: 0
@@ -98,6 +109,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer education-level attribute. Use to segment or compare sales activity by the recorded education category.
 	column EducationLevel
 		dataType: string
 		lineageTag: 1ec1877e-a04c-412c-b844-c026fb24b7d7
@@ -107,6 +119,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer occupation attribute. Use to segment or compare sales activity by occupation.
 	column Occupation
 		dataType: string
 		lineageTag: 8ed33a1b-bb25-4858-8950-076a4659670c
@@ -116,6 +129,7 @@ table dim_customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Indicator describing whether the customer is recorded as a homeowner. Use for customer segmentation and comparison; interpret values according to the source categories.
 	column HomeOwner
 		dataType: string
 		lineageTag: 56dc904d-7f56-45f6-b4a0-4fb8cff68a6d

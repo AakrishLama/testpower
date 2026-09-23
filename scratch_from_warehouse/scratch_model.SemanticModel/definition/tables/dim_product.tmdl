@@ -1,7 +1,9 @@
+/// Product dimension containing catalog and classification attributes for products sold in the sales fact. Use it to analyze ordered quantity and orders by product, model, SKU, color, size, style, category, or subcategory. ProductKey is a technical relationship key; ProductName is the preferred product label.
 table dim_product
 	lineageTag: 197f4aba-7cf5-4f2e-9397-a806359e04f1
 	sourceLineageTag: [gold].[dim_product]
 
+	/// Technical primary key for the product dimension and the one-side target of the fact_sales product relationship. Hidden from business-facing analysis; use ProductName or ProductSKU as the product label.
 	column ProductKey
 		dataType: int64
 		isHidden
@@ -13,6 +15,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Product stock-keeping unit or catalog identifier. Use for exact product lookup and detailed product identification; it is not a quantity or monetary measure.
 	column ProductSKU
 		dataType: string
 		lineageTag: 08da7f81-f9ec-4c32-b37e-ae888cdd0ee4
@@ -22,6 +25,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Preferred business label for the product. Use this column for product grouping, filtering, ranking, and natural-language product questions.
 	column ProductName
 		dataType: string
 		lineageTag: ebdb54e2-ec53-429a-9e9d-dda4e2b9b776
@@ -31,6 +35,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Product model or model-family label. Use to group products at the model level when a product-level view is too detailed.
 	column ModelName
 		dataType: string
 		lineageTag: a650d4c9-58ec-4eb3-b6dd-295ff9e35d14
@@ -40,6 +45,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Textual description of the product. Use for detailed product context or lookup; it is not intended for aggregation.
 	column ProductDescription
 		dataType: string
 		lineageTag: ff4ab8ee-7883-4808-8b2a-8c3d598e0a58
@@ -49,6 +55,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recorded color attribute for the product. Use to filter or compare order activity by product color.
 	column ProductColor
 		dataType: string
 		lineageTag: a81d39c6-2974-4c07-a22d-1f40aa278210
@@ -58,6 +65,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recorded size attribute for the product. Use to filter or compare order activity by product size.
 	column ProductSize
 		dataType: string
 		lineageTag: 823b9a95-b362-4b80-a756-1a7c5cd43713
@@ -67,6 +75,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recorded style attribute for the product. Use to filter or compare order activity by product style.
 	column ProductStyle
 		dataType: string
 		lineageTag: 3d5cde00-9c25-4674-bbac-d8e01953418d
@@ -76,6 +85,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Recorded unit or product cost attribute from the product dimension. Use for product-cost reference or segmentation only; the model does not provide a cost-based sales or profit measure.
 	column ProductCost
 		dataType: double
 		lineageTag: cea323ef-a611-4e78-81ee-3326fd16d003
@@ -87,6 +97,7 @@ table dim_product
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Recorded product price attribute from the product dimension. Use for product-price reference or segmentation only; do not treat it as realized sales revenue because no revenue measure is defined.
 	column ProductPrice
 		dataType: double
 		lineageTag: 04614a64-45ee-4454-86c4-8804e87e34bf
@@ -98,6 +109,7 @@ table dim_product
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Business subcategory assigned to the product. Use for product classification, filtering, and comparisons below the category level.
 	column SubcategoryName
 		dataType: string
 		lineageTag: 041c9eb6-0dae-455d-8b29-ca5b0a8b19af
@@ -107,6 +119,7 @@ table dim_product
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Business category assigned to the product. Use for high-level product classification, filtering, ranking, and natural-language category questions.
 	column CategoryName
 		dataType: string
 		lineageTag: d8e849d1-3566-404f-9193-72fc9cdff7ea

@@ -1,3 +1,4 @@
+/// Direct Lake sales model for order-line analysis across products, customers, dates, and sales territories. Each fact row represents an order line. Use Order Date as the default time context; use Stock Date only for stock-timing analysis. Key measures cover orders, quantity, line items, active customers, prior-year quantity, and year-over-year change.
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
