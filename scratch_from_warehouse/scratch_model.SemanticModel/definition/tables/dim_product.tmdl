@@ -1,0 +1,124 @@
+table dim_product
+	lineageTag: 197f4aba-7cf5-4f2e-9397-a806359e04f1
+	sourceLineageTag: [gold].[dim_product]
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 20270410-4298-4825-97b2-db66694e8faf
+		sourceLineageTag: ProductKey
+		summarizeBy: count
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSKU
+		dataType: string
+		lineageTag: 08da7f81-f9ec-4c32-b37e-ae888cdd0ee4
+		sourceLineageTag: ProductSKU
+		summarizeBy: none
+		sourceColumn: ProductSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: ebdb54e2-ec53-429a-9e9d-dda4e2b9b776
+		sourceLineageTag: ProductName
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModelName
+		dataType: string
+		lineageTag: a650d4c9-58ec-4eb3-b6dd-295ff9e35d14
+		sourceLineageTag: ModelName
+		summarizeBy: none
+		sourceColumn: ModelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductDescription
+		dataType: string
+		lineageTag: ff4ab8ee-7883-4808-8b2a-8c3d598e0a58
+		sourceLineageTag: ProductDescription
+		summarizeBy: none
+		sourceColumn: ProductDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductColor
+		dataType: string
+		lineageTag: a81d39c6-2974-4c07-a22d-1f40aa278210
+		sourceLineageTag: ProductColor
+		summarizeBy: none
+		sourceColumn: ProductColor
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSize
+		dataType: string
+		lineageTag: 823b9a95-b362-4b80-a756-1a7c5cd43713
+		sourceLineageTag: ProductSize
+		summarizeBy: none
+		sourceColumn: ProductSize
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductStyle
+		dataType: string
+		lineageTag: 3d5cde00-9c25-4674-bbac-d8e01953418d
+		sourceLineageTag: ProductStyle
+		summarizeBy: none
+		sourceColumn: ProductStyle
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCost
+		dataType: double
+		lineageTag: cea323ef-a611-4e78-81ee-3326fd16d003
+		sourceLineageTag: ProductCost
+		summarizeBy: sum
+		sourceColumn: ProductCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProductPrice
+		dataType: double
+		lineageTag: 04614a64-45ee-4454-86c4-8804e87e34bf
+		sourceLineageTag: ProductPrice
+		summarizeBy: sum
+		sourceColumn: ProductPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SubcategoryName
+		dataType: string
+		lineageTag: 041c9eb6-0dae-455d-8b29-ca5b0a8b19af
+		sourceLineageTag: SubcategoryName
+		summarizeBy: none
+		sourceColumn: SubcategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryName
+		dataType: string
+		lineageTag: d8e849d1-3566-404f-9193-72fc9cdff7ea
+		sourceLineageTag: CategoryName
+		summarizeBy: none
+		sourceColumn: CategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: gold
+			expressionSource: 'DirectLake - warehouse'
+

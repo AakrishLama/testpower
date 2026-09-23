@@ -1,0 +1,133 @@
+table dim_customer
+	lineageTag: 7fc16cb7-2ae8-4f2b-a830-db79ea0bde52
+	sourceLineageTag: [gold].[dim_customer]
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f0649fa-6631-4642-9a61-50c0836ef9ab
+		sourceLineageTag: CustomerKey
+		summarizeBy: count
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 8bb86b45-df97-4744-9609-740f9981263b
+		sourceLineageTag: FirstName
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: dc8ccccb-1cd9-4d2c-b4c0-26d2b74990bb
+		sourceLineageTag: LastName
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullName
+		dataType: string
+		lineageTag: 90337da2-50cb-4758-a389-7f59baa57420
+		sourceLineageTag: FullName
+		summarizeBy: none
+		sourceColumn: FullName
+
+		annotation SummarizationSetBy = Automatic
+
+	column BirthDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d765e1fa-fdb7-4be6-bbce-59c4168e3947
+		sourceLineageTag: BirthDate
+		summarizeBy: none
+		sourceColumn: BirthDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column MaritalStatus
+		dataType: string
+		lineageTag: f2eede31-826a-4da8-a84b-6a3f65671da9
+		sourceLineageTag: MaritalStatus
+		summarizeBy: none
+		sourceColumn: MaritalStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 711966b4-dc7b-47e2-8532-75d246a6cfce
+		sourceLineageTag: Gender
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmailAddress
+		dataType: string
+		lineageTag: 85e8bcfe-3f68-44d8-a0d8-071a5629a6c2
+		sourceLineageTag: EmailAddress
+		summarizeBy: none
+		sourceColumn: EmailAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnnualIncome
+		dataType: double
+		lineageTag: e606d32c-842e-44c0-a666-3608f7d6ec8b
+		sourceLineageTag: AnnualIncome
+		summarizeBy: sum
+		sourceColumn: AnnualIncome
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalChildren
+		dataType: int64
+		formatString: 0
+		lineageTag: 84c2c45d-6d4a-4610-9ab7-99fb2c32fc39
+		sourceLineageTag: TotalChildren
+		summarizeBy: sum
+		sourceColumn: TotalChildren
+
+		annotation SummarizationSetBy = Automatic
+
+	column EducationLevel
+		dataType: string
+		lineageTag: 1ec1877e-a04c-412c-b844-c026fb24b7d7
+		sourceLineageTag: EducationLevel
+		summarizeBy: none
+		sourceColumn: EducationLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Occupation
+		dataType: string
+		lineageTag: 8ed33a1b-bb25-4858-8950-076a4659670c
+		sourceLineageTag: Occupation
+		summarizeBy: none
+		sourceColumn: Occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column HomeOwner
+		dataType: string
+		lineageTag: 56dc904d-7f56-45f6-b4a0-4fb8cff68a6d
+		sourceLineageTag: HomeOwner
+		summarizeBy: none
+		sourceColumn: HomeOwner
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: gold
+			expressionSource: 'DirectLake - warehouse'
+

@@ -1,0 +1,90 @@
+table fact_sales
+	lineageTag: 7b92be9c-e92a-463e-a5ab-7b6962a0ff90
+	sourceLineageTag: [gold].[fact_sales]
+
+	column OrderDateKey
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 64244923-14e5-45c7-b1b4-55adcfad9547
+		sourceLineageTag: OrderDateKey
+		summarizeBy: none
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockDateKey
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 574cdc13-30af-493a-95ea-9d605495dc7f
+		sourceLineageTag: StockDateKey
+		summarizeBy: none
+		sourceColumn: StockDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderNumber
+		dataType: string
+		lineageTag: a2389ee7-8cab-476d-ae6e-323fd30864dc
+		sourceLineageTag: OrderNumber
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 35054dab-16c2-4c3c-8eaf-d50e253cc727
+		sourceLineageTag: ProductKey
+		summarizeBy: count
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7fcb6d7d-4a61-471b-aeee-20c676bb9d5d
+		sourceLineageTag: CustomerKey
+		summarizeBy: count
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b979b82-90a1-4148-8f6d-10373b4f67d0
+		sourceLineageTag: TerritoryKey
+		summarizeBy: count
+		sourceColumn: TerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineItem
+		dataType: int64
+		formatString: 0
+		lineageTag: a5a817f1-883c-41a6-ad73-3b671de7163a
+		sourceLineageTag: OrderLineItem
+		summarizeBy: sum
+		sourceColumn: OrderLineItem
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f57aee2d-77e5-4aa8-b707-3db6a373aa11
+		sourceLineageTag: OrderQuantity
+		summarizeBy: sum
+		sourceColumn: OrderQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sales = entity
+		mode: directLake
+		source
+			entityName: fact_sales
+			schemaName: gold
+			expressionSource: 'DirectLake - warehouse'
+
